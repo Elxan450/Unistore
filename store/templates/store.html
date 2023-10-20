@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static tags %}
+
+{% block title %}
+    <title>Store</title>
+{% endblock %} 
+
+{% block content %}
+    <hr class="offset-top">
+
+    <div class="tags">
+      <div class="container">
+          <div class="btn-group pull-right sorting">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="ion-arrow-down-b"></i> Sorting by name
+            </button>
+
+            <ul class="dropdown-menu">
+              <li data="product" class="ordering"><a href=""> <i class="ion-arrow-down-c"></i> Name [A-Z]</a></li>
+              <li data="-product" class="ordering"><a href=""> <i class="ion-arrow-up-c"></i> Name [Z-A]</a></li>
+              <li data="price" class="ordering"><a href=""> <i class="ion-arrow-down-c"></i> Price [Low-High]</a></li>
+              <li data="-price" class="ordering"><a href=""> <i class="ion-arrow-up-c"></i> Price [High-Low]</a></li>
+            </ul>
+          </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <!-- Filter -->
+        <div class="col-sm-4 col-md-3">
+          <hr class="offset-lg">
+
+          <div class="filter">
+            <div class="item">
+                <div class="title">
+                    <h1 class="h4">Type</h1>
+                </div>
+
+                <ul>
+                  {% get_all_categories as categories %}
+                  {% for category in categories %}
+                    <li class="category-filter" data="{{category.id}}">
+                      <a href="">
+                      <div class="text">
+                        <p>{{category.name}}</p>
+                      </div>
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+            </div>
+
+            <br>
+
+
+            <br>
+
+            <div class="item">
+              <div class="title">
+                  <a href="#clear" data-action="open" class="down"> <i class="ion-android-arrow-dropdown"></i> Open</a>
+                  <h1 class="h4">Price</h1>
+              </div>
+              <form action="">
+                <label for="fname">Price is grater than :</label>
+                <input type="text" id="price_gt" name="fname" required><br><br>
+                <label for="lname">Price is less than :</label>
+                <input type="text" id="price_lt" name="lname" required><br><br>
+                <button type="submit" class="btn btn-primary" id="price-btn">Apply</button><br>
+              </form>
+            </div>
+            <br>
+
+            <div class="item lite">
+                <div class="title">
+                    
+                    <h1 class="h4">Manufacturer</h1>
+                </div>
+
+                <ul>
+                  {% get_all_manufacturers as manufacturers %}
+                  {% for manufacturer in manufacturers %}
+                  <li class="manufacturer-filter" data="{{manufacturer.id}}">
+                    <a href="">
+                    <div class="text">
+                      <p>{{manufacturer.name}}</p>
+                    </div>
+                    </a>
+                  </li>
+                  {% endfor %}
+                </ul>
+            </div>
+          </div>
+        </div>
+        <!-- /// -->
+
+        <!-- Products -->
+        <div class="col-sm-8 col-md-9">
+          <hr class="offset-lg">
+
+          <div class="products">
+            <div class="row" id="product-list"  data="False">
+
+              {% for product_version in product_versions %}
+              <div class="col-sm-6 col-md-4 product" data="{{product_version.id}}">
+                <div class="body">
+                  <a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
+                  <a href="{{product_version.get_absolute_url}}"><img src="../../media/{{product_version.images.first.image}}" alt="Microsoft Surface Studio"/></a>
+
+                  <div class="content">
+                    <h1 class="h3">{{product_version.product.name}}</h1>
+
+                    {% if product_version.get_discounted_price %}
+                      <p class="price">${{product_version.get_discounted_price}}</p>
+                      <p class="price through">${{product_version.price}}</p>
+                    {% else %}
+                      <p class="price">${{product_version.price}}</p>
+                    {% endif %}
+
+                    <label>{{product_version.product.category.name}}</label>
+
+                    <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+
+            </div>
+          </div>
+
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              {% if page_obj.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              {% endif %}
+  
+              {% for page in paginator.page_range %}
+                <li class="page-item {% if page == page_obj.number%} active {% endif %}"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+              {% endfor %}
+              
+  
+              
+            {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            {% endif %}
+  
+            </ul>
+          </nav>
+        </div>
+        <!-- /// -->
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+		<script src="{% static 'js/filter-category.js' %}"></script>
+    <script src="{% static 'js/filter-manufacturer.js' %}"></script>
+    <script src="{% static 'js/filter-price.js' %}"></script>
+    <script src="{% static 'js/products-order.js' %}"></script>
+{% endblock %}

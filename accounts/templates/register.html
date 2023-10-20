@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Register</title>
+{% endblock %}
+
+{% block content %}
+<div style="padding-top: 10% ;" class="container" id="Modal-SignIn" tabindex="-1" role="dialog">
+    <div class="dialog" role="document">
+      <div class="content">
+        <div class="header">
+        </div>
+        <div class="body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+                <h2 class="title text-center">Registration</h2>
+                <br>
+  
+          		<form class="form-group" action="" method="post" enctype="multipart/form-data">
+					{{ form.non_field_errors }}
+					{% csrf_token %}
+					{{ form.non_field_errors }}
+					
+
+					{{form.first_name}}
+					{{form.first_name.errors}}        
+					<br>
+
+					{{form.last_name}}
+					{{form.last_name.errors}}
+					<br>
+
+					{{form.username}}
+					{{form.username.errors}}
+					<br>
+
+					{{form.email}}
+					{{form.email.errors}}
+					<br>
+
+					{{form.password1}}
+					{{form.password1.errors}}
+					<br>
+
+					{{form.password2}}
+					{{form.password2.errors}}
+					<br>			
+
+					<button type="submit" class="btn btn-primary">Ok</button>
+					<a href="{% url 'login' %}" data-action="Forgot-Password">Or log in</a>
+          		</form>
+
+                <br>
+                <div class="social-login">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

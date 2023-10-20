@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Review delete</title>
+{% endblock %}
+
+{% block content %}
+<div style="padding-top: 10% ;" class="container" id="Modal-SignIn" tabindex="-1" role="dialog">
+    <div class="dialog" role="document">
+      <div class="content">
+        <div class="header">
+          
+        </div>
+        <div class="body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+                <h2 class="title text-center">Are you sure you want to delete your review?</h2>
+                <br>
+
+                <p>{{review.review}}</p>
+
+                <form class="form-group" action="" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Yes, I am sure</button>
+                    <a href="{{product_version.get_absolute_url}}"><button style="background-color: blue;" type="button" class="btn btn-primary">Cancel</button></a>
+                    <br>                
+                </form>
+                <br>
+                <div class="social-login">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

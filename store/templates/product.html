@@ -1,0 +1,306 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Product</title>
+{% endblock %} 
+
+{% block content %}
+	<hr class="offset-lg">
+	<hr class="offset-lg">
+	<hr class="offset-lg hidden-xs">
+
+
+	<section class="product">
+		<div class="container">
+		<div class="row">
+			<div class="col-sm-7 col-md-7 white no-padding">
+			<div class="carousel-product" data-count="4" data-current="1">
+
+				<div class="items">
+				<button class="btn btn-control" data-direction="right"> <i class="ion-ios-arrow-right"></i></button>
+				<button class="btn btn-control" data-direction="left"> <i class="ion-ios-arrow-left"></i></button>
+
+				{% for image in product_version.images.all %}
+					<div class="item" data-marker="3">
+						<img src="/../../media/{{image.image}}" alt="Microsoft Surface Studio" class="background"/>
+					</div>
+				{% endfor %}
+
+				<div class="item" data-marker="4">
+					<img src="{% static 'img/product/video.jpg' %}" alt="Microsoft Surface Studio" class="background"/>
+
+					<div class="tiles">
+					<a href="#video" data-gallery="#video" data-source="youtube" data-id="BzMLA8YIgG0">
+						<img src="{% static 'img/product/video.jpg' %}" alt="Surface Studio">
+
+						<div class="overlay"></div>
+						<div class="content">
+						<div class="content-outside">
+							<div class="content-inside">
+							<i class="ion-ios-play"></i>
+							<h2 class="white hidden-xs">Introducing Microsoft <br> Surface Studio</h2>
+							</div>
+						</div>
+						</div>
+					</a>
+					</div>
+			</div>
+			</div>
+
+			<ul class="markers">
+			<li data-marker="1" class="active"></li>
+			<li data-marker="2"></li>
+			<li data-marker="3"></li>
+			<li data-marker="4"></li>
+			</ul>
+
+		</div>
+		</div>
+			<div class="col-sm-5 col-md-5 no-padding-xs">
+			<div class="caption">
+				<img src="{% static 'img/brands/microsoft.png' %}" alt="Microsoft" class="brand hidden-xs hidden-sm" />
+
+				<h1>{{product_version.product.name}}</h1>
+
+				<p> &middot; {{product_version.operating_system.name}}</p>
+				<p> &middot; {{product_version.processor.name}}</p>
+				<p> &middot; {{product_version.graphics.description}}</p>
+				<hr class="offset-md hidden-sm">
+				<hr class="offset-sm visible-sm">
+				<hr class="offset-xs visible-sm">
+
+				{% if product_version.get_discounted_price %}
+					<p class="price">${{product_version.get_discounted_price}}</p>
+					<p class="price through">${{product_version.price}}</p>
+                {% else %}
+                    <p class="price">${{product_version.price}}</p>
+            	{% endif %}
+				<hr class="offset-md">
+
+
+				<form action="{% url 'add_to_cart' slug=product_version.slug %}" method="post" style="display: inline-block;">
+					{% csrf_token %}
+					<button class="btn btn-primary rounded"> <i class="ion-bag"></i> Add to cart</button>
+				</form>
+
+				{% if request.user.is_authenticated %}
+					{% if product_version in request.user.fav_list.get_products %}
+						<a href="{% url 'remove_fav' slug=product_version.slug %}"><button class="btn btn-link" id="fav_delete" data="{{request.user.fav_list.id}}" value="{{product_version.id}}"> <i class="ion-ios-heart"></i> Delete from the wishlist </button></a>
+					{% else %}
+						<a href="{% url 'add_to_fav' slug=product_version.slug %}"><button class="btn btn-link" id="fav_add" data="{{request.user.fav_list.id}}" value="{{product_version.id}}"> <i class="ion-ios-heart"></i> See later </button></a>
+					{% endif %}
+				{% else %}
+					<button class="btn btn-link" id="fav"> <i class="ion-ios-heart"></i> <a href="{% url 'login' %}">Login to add this item to your wishlist</a></button>
+				{% endif %}
+			</div>
+			</div>
+		</div>
+		<hr class="offset-sm hidden-xs">
+
+		<div class="row">
+			<div class="col-sm-7 white sm-padding">
+			<hr class="offset-sm visible-xs">
+
+			<h2 class="h1">{{product_version.product.name}}</h2>
+			<br>
+
+			<p>
+				{{product_version.product.description}}
+			</p>
+			<br>
+
+			<h2>Product specifications</h2>
+			<br>
+
+				<div class="row specification">
+				<div class="col-sm-4"> <label>Operating system</label> </div>
+				<div class="col-sm-8"> <p>{{product_version.operating_system.name}}</p> </div>
+				</div>
+
+				<div class="row specification">
+				<div class="col-sm-4"> <label>Display</label> </div>
+				<div class="col-sm-8">
+					<p>
+						{{product_version.display.description}}
+					</p>
+				</div>
+				</div>
+				
+				<div class="row specification">
+				<div class="col-sm-4"> <label>Processor</label> </div>
+				<div class="col-sm-8"> <p>{{product_version.processor.name}}</p> </div>
+				</div>
+
+
+				<div class="row specification">
+				<div class="col-sm-4"> <label>Graphics</label> </div>
+				<div class="col-sm-8"> <p>{{product_version.graphics.description}}</p> </div>
+				</div>
+
+				<div class="row specification">
+				<div class="col-sm-4"> <label>Memory</label> </div>
+				<div class="col-sm-8"> <p>{{product_version.ram.name}}</p> </div>
+				</div>
+
+				<div class="row specification">
+				<div class="col-sm-4"> <label>Hard drive</label> </div>
+				<div class="col-sm-8"> <p>{{product_version.hard_drive.name}}</p> </div>
+				</div>
+
+				<div class="row specification">
+				<div class="col-sm-4"> <label>Wireless</label> </div>
+				<div class="col-sm-8">
+					<p>
+						{{product_version.wireless.description}}
+					</p>
+				</div>
+				</div>
+
+				<div class="row specification">
+				<div class="col-sm-4"> <label>Power supply</label> </div>
+				<div class="col-sm-8"> <p>{{product_version.power_supply.name}}</p> </div>
+				</div>
+
+				<div class="row specification">
+				<div class="col-sm-4"> <label>Battery</label> </div>
+				<div class="col-sm-8"> <p>{{product_version.battery.name}}</p> </div>
+				</div>
+
+				<hr class="offset-lg">
+			</div>
+			<div class="col-sm-5 no-padding-xs">
+			<div class="talk white">
+				<h2 class="h3">Do you have any questions?</h2>
+				<p class="">Whatsuping now with our manager</p>
+				<hr class="offset-md">
+
+				<a href="tel:+80005554465" class="btn btn-primary btn-sm"> <i class="ion-social-whatsapp"></i> 8000 555-44-65 </a>
+				<hr class="offset-md visible-xs">
+			</div>
+			<hr class="offset-sm hidden-xs">
+
+			<div class="comments white">
+				<h2 class="h3">What do you think? (#{{product_version.product_reviews.all.count}})</h2>
+				<br>
+
+
+				<div class="wrapper">
+				<div class="content">
+					{% for review in product_version.product_reviews.all %}
+
+						<h3>{{review.user.first_name}} {{review.user.last_name}}</h3>
+						<label>{{review.created_at|date:"M d , o"}}</label>
+						<p>
+							{{review.review}} {% if review.edited %} <em>(Edited)</em>{% endif %}
+						</p>
+						{% if request.user == review.user %}
+							<div>
+								<a href="{{review.get_edit_url}}" style="margin-right:5px;"> <i class="ion-edit"></i></a>
+								<a href="{{review.get_delete_url}}"> <i class="ion-android-delete"></i></a>
+							</div>
+						{% endif %}
+					{% endfor %}
+
+				</div>
+				</div>
+				<hr class="offset-lg">
+				<hr class="offset-md">
+
+				{% if user.is_authenticated %}
+					<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#Modal-Comment"> <i class="ion-chatbox-working"></i> Add comment </button>
+					<hr class="offset-md visible-xs">
+				{% else %}
+					<a href="{% url 'login' %}">Login to leave a comment</a>
+				{% endif %}
+			</div>             
+			</div>
+		</div>
+		</div>
+	</section>
+	<hr class="offset-lg">
+
+	<div class="modal fade" id="Modal-Comment" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+		  <div class="modal-content">
+			<div class="modal-header align-center">
+			  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="ion-android-close"></i></span></button>
+			  <h1 class="h4 modal-title">Add your comment</h1>
+			</div>
+			<div class="modal-body">
+			  <div class="container-fluid">
+			  
+			  <form class="join" action="" method="post">
+				{% csrf_token %}
+				<div class="row">
+				  
+					<div class="col-sm-12">
+						{{form.review}}
+						{{form.review.errors}}
+					  	<!-- <textarea name="comment" placeholder="Type here" required="" class="form-control" rows="5"></textarea> -->
+					<br>
+				  </div>
+				  <div class="col-sm-12">
+					  <div class="align-center">
+						  <br>
+						  <button type="submit" class="btn btn-primary btn-sm"> <i class="ion-android-send"></i> Send</button>
+						  <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal"> <i class="ion-android-share"></i> No, thanks </button>
+						  <br><br>
+					  </div>
+				  </div>
+				</div>
+			   </form>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	</div>
+
+	<section class="products">
+		<div class="container">
+		<h2 class="upp align-center-xs"> Related products </h2>
+		<hr class="offset-lg">
+
+		<div class="row">
+
+			{% for related_product in related_products %}
+			<div class="col-sm-4 col-md-3 product">
+			<div class="body">
+				<a href="#favorites" class="favorites" data-favorite="inactive"><i class="ion-ios-heart-outline"></i></a>
+				<a href="{{related_product.get_absolute_url}}"><img src="/../../media/{{related_product.images.first.image}}" alt="Apple iMac 27 Retina"/></a>
+
+				<div class="content align-center">
+
+
+				{% if related_product.get_discounted_price %}
+					<p class="price">${{related_product.get_discounted_price}}</p>
+					<p class="price through">${{related_product.price}}</p>
+				{% else %}
+					<p class="price">${{related_product.price}}</p>
+				{% endif %}
+
+				<h2 class="h3">{{related_product.product.name}}</h2>
+				<hr class="offset-sm">
+
+				<button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
+				<button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
+				</div>
+			</div>
+			</div>
+			{% endfor %}
+		</div>
+
+		</div>
+	</section>
+{% endblock %}
+
+{% block js %}
+  <script src="{% static 'js/carousel-product.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/jquery.touchSwipe.min.js' %}"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+    });
+  </script>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Home page</title>
+{% endblock %}
+ 
+{% block content %}
+    <hr class="offset-lg">
+    <hr class="offset-lg">
+    <hr class="offset-lg hidden-xs">
+
+    <div class="container">
+      <div class="row">
+        <!-- Products -->
+        <div class="col-sm-12">
+          <hr class="offset-lg">
+
+          <div class="products">
+            <div class="row">
+
+              {% for product in favorite_products %}
+              <div class="col-sm-6 col-md-4 product">
+                <div class="body">
+                  <a href="#favorites" class="favorites" data-favorite="active"><i class="ion-ios-heart-outline"></i></a>
+                  <a href="{{product.product.get_absolute_url}}"><img src="../../media/{{product.product.images.first.image}}" alt="Lenovo Yoga 900"/></a>
+
+                  <div class="content align-center">
+                    {% if product.product.get_discounted_price %}
+                      <p class="price">${{product.product.get_discounted_price}}</p>
+                      <p class="price through">${{product.product.price}}</p>
+                    {% else %}
+                      <p class="price">${{product.product.price}}</p>
+                    {% endif %}
+                    <h2 class="h3">{{product.product.product.name}}</h2>
+                    <hr class="offset-sm">
+
+                    <button class="btn btn-link"> <i class="ion-android-open"></i> Details</button>
+                    <button class="btn btn-primary btn-sm rounded"> <i class="ion-bag"></i> Add to cart</button>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}            
+        
+            </div>
+          </div>
+
+          <nav>
+            <ul class="pagination">
+              <li class="active"><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+            </ul>
+          </nav>
+        </div>
+        <!-- /// -->
+      </div>
+    </div>
+
+    <hr class="offset-lg">
+    <hr class="offset-sm">
+{% endblock %}

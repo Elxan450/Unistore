@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+	<title>Blog</title>
+{% endblock %}
+
+{% block content %}
+    <hr class="offset-top">
+    <div class="tags">
+      <div class="container">
+          <div class="btn-group pull-right sorting">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="ion-arrow-down-b"></i> Sorting by name
+            </button>
+
+            <ul class="dropdown-menu">
+              <li id="ordering"><a href="#"> <i class="ion-arrow-down-c"></i> Name [A-Z]</a></li>
+              <li id="-ordering"><a href="#"> <i class="ion-arrow-up-c"></i> Name [Z-A]</a></li>
+            </ul>
+          </div>
+      </div>
+    </div>
+
+    <hr class="offset-md">
+
+    <div class="blog">
+      <div class="container">
+        <div class="row" id="blogs">
+
+          {% for blog in blogs %}
+          <div class="col-sm-6 col-md-6 item">
+            <div class="body">
+              <a href="{{blog.get_absolute_url}}" class="view"><i class="ion-ios-book-outline"></i></a>
+
+              <a href="{{blog.get_absolute_url}}">
+                <img src="/../../media/{{blog.image}}" title="Apple Devices" alt="Apple Devices">
+              </a>
+
+              <div class="caption">
+                <h1 class="h3">{{blog.title}}</h1>
+                <label>{{blog.created_at | date:"M d, Y"}}</label>
+                <hr class="offset-sm">
+
+                <p>
+                  {{blog.description|truncatechars:200 }}
+                </p>
+                <hr class="offset-sm">
+
+                <a href="{{blog.get_absolute_url}}"> View article <i class="ion-ios-arrow-right"></i> </a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+
+
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            {% if page_obj.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+            {% endif %}
+
+            {% for page in paginator.page_range %}
+              <li class="page-item {% if page == page_obj.number%} active {% endif %}"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+            {% endfor %}
+            
+
+            
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          {% endif %}
+
+          </ul>
+        </nav>
+
+      </div>
+    </div>
+
+    <hr class="offset-lg">
+    <hr class="offset-sm">
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/blog-filter.js' %}"></script>
+{% endblock %}

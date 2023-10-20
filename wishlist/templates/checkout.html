@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% load static tags %}
+
+{% block title %}
+    <title>Contact</title>
+{% endblock %}
+
+{% block content %}
+    <hr class="offset-top">
+
+    <div class="white">
+        <div class="container checkout">
+            <h1>Checkout order</h1>
+            <hr class="offset-sm">
+        </div>
+    </div>
+    <hr class="offset-md">
+
+    <div class="container checkout">
+        <form action="" method="post">
+          {% csrf_token %}
+        <div class="row">
+            <div class="col-md-7">
+                  
+                  <div class="row group">
+                    <div class="col-sm-4"><h2 class="h4">Phone</h2></div>
+                    <div class="col-sm-8">{{form.phone}}</div>
+                  </div>
+
+                  <div class="row group">
+                    <div class="col-sm-4"><h2 class="h4">E-mail</h2></div>
+                    <div class="col-sm-8">{{form.email}}</div>
+                  </div>
+
+                  <div class="row group">
+                    <div class="col-sm-4"><h2 class="h4">Choose country</h2></div>
+                    <div class="col-sm-8">
+                      
+
+                      <div class="group-select justify" tabindex='1'>
+                        <input class="form-control select" id="country" name="country"  placeholder="" required="" />
+
+                          <ul class="dropdown">
+                            {% countries as countries %}
+                            {% for country in countries %}
+                            <li data-value="{{country}}" value="{{country.id}}" class="countries">{{country}}</li>
+                            {% endfor %}
+                          </ul>
+
+                          <div class="arrow bold"><i class="ion-chevron-down"></i></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <br><br>
+                  <div class="">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <h2 class="h4">City</h2>
+
+                        <div class="group-select justify" tabindex='1'>
+                          <input type="text" id="city" class="form-control select" name="city" value="" required="" placeholder="" />
+
+                          <ul class="dropdown" id="city-drop">
+                            {% cities as cities %}
+                            {% for city in cities %}
+                            <li data-value="{{city}}" class="cities">{{city}}</li>
+                            {% endfor %}
+                          </ul>
+
+                          <div class="arrow bold"><i class="ion-chevron-down"></i></div>
+                      </div>
+
+                      </div>
+                      <div class="col-sm-4">
+                        <h2 class="h4">Street</h2>
+
+                        {{form.street}}
+                      </div>
+                      <div class="col-sm-2">
+                        <h2 class="h4">Building</h2>
+
+                        {{form.building}}
+                      </div>
+                      <div class="col-sm-2">
+                        <h2 class="h4">Zip</h2>
+
+                        {{form.zip}}
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+
+
+                  <div class="row group">
+                    <div class="col-sm-4"><h2 class="h4">Payment</h2></div>
+                    <div class="col-sm-8">
+                      <div class="group-select justify" tabindex='1'>
+                          {{form.payment}}
+
+                          <ul class="dropdown">
+                            <li data-value="Cash on Delivery">Cash on Delivery</li>
+                            <li data-value="Paypall">Paypall</li>
+                          </ul>
+
+                          <div class="arrow bold"><i class="ion-chevron-down"></i></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div class="row group">
+                    <div class="col-sm-4"><h2 class="h4">Promo code</h2></div>
+                    <div class="col-sm-8"> <input type="text" class="form-control" name="promo" value="" required="" placeholder="" /></div>
+                  </div> -->
+
+
+                  <hr class="offset-lg visible-xs visible-sm">
+                  <hr class="offset-lg visible-xs">
+            </div>
+
+            <div class="col-md-5 white">
+                <hr class="offset-md visible-xs visible-sm">
+                <div class="checkout-cart">
+                    <div class="content">
+                      {% for product in checkout_products %}
+                        <div class="media">
+                          <div class="media-left">
+                            <a href="#">
+                              <img class="media-object" src="../../media/{{product.product.images.first.image}}" alt="iPad Air"/>
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            <h2 class="h4 media-heading">{{product.product}}</h2>
+                            <label>{{product.product.category}}</label>
+                            {% if product.product.get_discounted_price %}
+                              <p class="price">${{product.product.get_discounted_price}}</p>
+                            {% else %}
+                              <p class="price">${{product.product.price}}</p>
+                            {% endif %}
+                          </div>
+                          <div class="controls">
+                            <div class="input-group">
+                              <span class="input-group-btn">
+                                <a href="{% url 'sub_quantity' id=product.product.id %}"><button class="btn btn-default btn-sm" type="button" data-action="minus"><i class="ion-minus-round"></i></button></a>
+                              </span>
+                              <input type="text" class="form-control input-sm" placeholder="Qty" value="{{product.quantity}}" readonly="">
+                              <span class="input-group-btn">
+                                <a href="{% url 'add_quantity' id=product.product.id %}"><button class="btn btn-default btn-sm" type="button" data-action="plus"><i class="ion-plus-round"></i></button></a>
+                              </span>
+                            </div><!-- /input-group -->
+
+                            <a href="{% url 'remove_cart' id=product.product.id %}"> <i class="ion-trash-b"></i> Remove </a>
+                          </div>
+                        </div>
+                      {% endfor %}
+ 
+                    </div>
+                </div>
+                <hr class="offset-md visible-xs visible-sm">
+            </div>
+
+            <hr class="offset-lg hidden-xs">
+
+            <div class="col-sm-12 white">
+                <hr class="offset-md">
+                <div class="row">
+                    <div class="col-xs-6 col-md-4">
+                        <h3 class="h5 no-margin">total discount: $ {{discount}}</h3>
+                        <h3 class="h4 no-margin">Total: $ {{total_price}}</h3>
+                    </div>
+                    <div class="col-md-4 hidden-xs">
+                    </div>
+                    <div class="col-xs-6 col-md-4">
+                        <button class="btn btn-primary pull-right" type="submit">Confirm order</button>
+                    </div>
+                </div>
+                <hr class="offset-md">
+            </div>
+
+        </div>
+        </form>
+    </div>
+
+    <hr class="offset-lg">
+    <hr class="offset-sm">
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/checkout.js' %}"></script> 
+    <script src="{% static 'js/checkout_city.js' %}"></script> 
+{% endblock %}

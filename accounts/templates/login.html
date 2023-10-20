@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Login</title>
+{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+<div style="padding-top: 10% ;" class="container" id="Modal-SignIn" tabindex="-1" role="dialog">
+  <div class="dialog" role="document">
+    <div class="content">
+      <div class="header">
+      </div>
+      <div class="body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+              <h2 class="title text-center">Sign In</h2>
+              <br>
+
+            <form class="form-group" action="" method="post" id="login-form">
+				{% csrf_token %}
+				<!-- <input type="text" name="username" value="" placeholder="Username" required="" class="form-control" />
+				<br>
+				<input type="password" name="password" value="" placeholder="Password" required="" class="form-control" />
+				<br> -->
+
+				{{form.username}}
+				{{form.username.errors}}
+				<br>
+
+				{{form.password}}
+				{{form.password.errors}}
+				<br>
+
+				<button type="submit" class="btn btn-primary">Ok </button>
+				<a href="{% url 'reset_password' %}" data-action="Forgot-Password">  Password recovery ></a>
+
+				
+				<div class="form-group center">
+					<a href="{% url 'social:begin' 'facebook' %}" class="social"><i class="fa fa-facebook social-login fb-color"></i></a>
+					<a href="#" class="social"><i class="fa fa-google-plus social-login google-color"></i></a>
+				</div>
+            </form>
+            <br>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+	<script src="{% static 'js/login.js' %}"></script>
+{% endblock %} 

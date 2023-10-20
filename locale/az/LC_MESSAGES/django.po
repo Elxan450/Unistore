@@ -1,0 +1,145 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-06 01:44+0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\core\templates\base.html:255
+msgid "Log out"
+msgstr "Çıxış"
+
+#: .\core\templates\base.html:258
+msgid "Registration"
+msgstr "Qeydiyyat"
+
+#: .\core\templates\base.html:259
+msgid "Sign In"
+msgstr "Daxil ol"
+
+#: .\core\templates\base.html:261
+msgid "Favorites"
+msgstr "Sevimlilər"
+
+#: .\core\templates\base.html:281
+msgid "Home"
+msgstr "Ana Sehife"
+
+#: .\core\templates\base.html:282
+msgid "Store"
+msgstr "Magaza"
+
+#: .\core\templates\base.html:283
+msgid "Blog"
+msgstr "Bloq"
+
+#: .\core\templates\base.html:284 .\core\templates\base.html:430
+msgid "Contacts"
+msgstr "Biz kimik?"
+
+#: .\core\templates\base.html:337
+msgid "24/7 free"
+msgstr "24/7 pulsuz"
+
+#: .\core\templates\base.html:337
+msgid "support"
+msgstr "Destek"
+
+#: .\core\templates\base.html:343
+msgid "Low price"
+msgstr "Aşağı qiymət"
+
+#: .\core\templates\base.html:343 .\core\templates\base.html:355
+msgid "guarantee"
+msgstr "zəmanət"
+
+#: .\core\templates\base.html:349
+msgid "Manufacturer’s"
+msgstr "İstehsalçı"
+
+#: .\core\templates\base.html:349
+msgid "warranty"
+msgstr "zəmanət"
+
+#: .\core\templates\base.html:355
+msgid "Full refund"
+msgstr "Tam geri qaytarma"
+
+#: .\core\templates\base.html:368
+msgid "Join our newsletter"
+msgstr "Bülletenimizə qoşulun"
+
+#: .\core\templates\base.html:369
+msgid "Get more information and receive special discounts for our products."
+msgstr "Ətraflı məlumat əldə edin və məhsullarımıza xüsusi endirimlər əldə edin."
+
+#: .\core\templates\base.html:377
+msgid "Subscribe"
+msgstr "Abunə ol"
+
+#: .\core\templates\base.html:409
+msgid "About"
+msgstr "Haqqında"
+
+#: .\core\templates\base.html:410
+msgid "How to order"
+msgstr "Necə sifariş etmək olar"
+
+#: .\core\templates\base.html:411
+msgid "Delivery"
+msgstr "Çatdırılma"
+
+#: .\core\templates\base.html:415
+msgid "Products"
+msgstr "Produklar"
+
+#: .\core\templates\base.html:425 .\core\templates\base.html:474
+#, fuzzy
+#| msgid "support"
+msgid "Support"
+msgstr "Destek"
+
+#: .\core\templates\base.html:428
+msgid "Returns"
+msgstr "Qaytarmaq"
+
+#: .\core\templates\base.html:429
+msgid "FAQ"
+msgstr ""
+
+#: .\core\templates\base.html:434
+msgid "Location"
+msgstr "Məkan"
+
+#: .\core\templates\base.html:438
+msgid "Language"
+msgstr "Dil"
+
+#: .\core\templates\base.html:452
+msgid "Currency"
+msgstr "Valyuta"
+
+#: .\core\templates\base.html:487
+msgid "Pay your order in the most convenient way"
+msgstr "Sifarişinizi ən rahat şəkildə ödəyin"
+
+#: .\core\views.py:18
+msgid "Your form was sent successfully!"
+msgstr "Form Ugurla qeyde alindi"
+
+#: .\core\views.py:21
+msgid "Something went wrong!"
+msgstr "Sehflik var!"
