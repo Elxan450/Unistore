@@ -216,8 +216,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 MEDIA_URL = '/media/'
 
-TRANSLATABLE_MODEL_MODULES = ('accounts.models', 'blog.models', 'core.models', 'store.models', 'wishlist.models')
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
