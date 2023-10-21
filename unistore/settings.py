@@ -141,7 +141,7 @@ DATABASES = {
         'NAME': os.environ.get('POSTGRES_DB', 'Unistore'),
         'USER': os.environ.get('POSTGRES_USER', 'postgres'),
         'PORT': os.environ.get('POSTGRES_PORT', 5432),
-        'HOST': os.environ.get('POSTGRES_HOST', '188.166.66.29'),
+        'HOST': os.environ.get('POSTGRES_HOST', '157.245.73.1'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'elxan2004')
     }
 }
