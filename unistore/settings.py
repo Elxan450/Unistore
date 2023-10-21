@@ -142,7 +142,7 @@ DATABASES = {
         'USER': os.environ.get('POSTGRES_USER', 'postgres'),
         'PORT': os.environ.get('POSTGRES_PORT', 5432),
         'HOST': os.environ.get('POSTGRES_HOST', '206.189.107.185'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'elxan2004')
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 12345)
     }
 }
 from django.contrib.messages import constants as messages
