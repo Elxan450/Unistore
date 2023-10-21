@@ -14,7 +14,7 @@ services:
       - LC_ALL=C.UTF-8
 
   web:
-    container_name: pavshop-web
+    container_name: Unistore
     build: .
     restart: "always"
     ports:
