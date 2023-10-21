@@ -14,7 +14,7 @@ services:
       - LC_ALL=C.UTF-8
 
   web:
-    container_name: unistore
+    container_name: unistore-web
     build: .
     restart: "always"
     ports:
@@ -28,7 +28,7 @@ services:
     env_file: .env
     depends_on:
       - db
-      - redis
+      # - redis
 
   adminer:
     container_name: adminer
@@ -48,12 +48,12 @@ services:
   #     - redis
   #   env_file: .env
 
-  redis:
-    container_name: redis
-    image: redis
-    restart: always
-    ports:
-      - 6379:6379
+  # redis:
+  #   container_name: redis
+  #   image: redis
+  #   restart: always
+  #   ports:
+  #     - 6379:6379
 
 networks:
   default:

@@ -21,18 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4%*(ur)puqvic-!yik3hz-1p&ayt)@t)sx#unq4&7xsi_nzigv'
+SECRET_KEY = os.environ.get("SECRET_KEY", "p!@#-i(@zfp(ur!ba5w83q1n8f^bz$!+b+9ht*u-ki)+wyve*5")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=1))
 PROD = not DEBUG
-SECRET_KEY = os.environ.get("SECRET_KEY", "%u9+=!+eqfs9bczk_)$r=3*%88ftek1nyxal+=tlpfp@8*#$_u")
-ALLOWED_HOSTS = ['*'] # os.environ.get("ALLOWED_HOSTS").split(" ")
-
-
-
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = ['*'] # os.environ.get("ALLOWED_HOSTS", "*").split(",")
 
 # Application definition
 
@@ -135,16 +129,19 @@ WSGI_APPLICATION = 'unistore.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# PostgreSQL
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_DB', 'Unistore'),
-        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
-        'PORT': os.environ.get('POSTGRES_PORT', 5432),
-        'HOST': os.environ.get('POSTGRES_HOST', '206.189.107.185'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 12345)
+        'NAME': os.environ.get("POSTGRES_DB", 'unistore'),
+        'USER': os.environ.get("POSTGRES_USER", 'root'),
+        'PASSWORD': os.environ.get("POSTGRES_PASSWORD", 12345),
+        'HOST': os.environ.get("POSTGRES_HOST", 'localhost'), # 'localhost' or droplet_ip
+        'PORT': os.environ.get("POSTGRES_PORT", 5432),
     }
 }
+
+
 from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS = {
