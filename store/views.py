@@ -20,7 +20,7 @@ class StoreListView(ListView):
     template_name = "store.html"
     model = ProductVersion
     context_object_name = "product_versions"
-    paginate_by = 3
+    paginate_by = 6
 
 def product(request, slug):
     product_version = get_object_or_404(ProductVersion, slug=slug)
