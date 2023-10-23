@@ -21,39 +21,20 @@
 				<button class="btn btn-control" data-direction="right"> <i class="ion-ios-arrow-right"></i></button>
 				<button class="btn btn-control" data-direction="left"> <i class="ion-ios-arrow-left"></i></button>
 
-				{% for image in product_version.images.all %}
+				
 					<div class="item" data-marker="3">
+						{% for image in product_version.images.all %}
 						<img src="/../../media/{{image.image}}" alt="Microsoft Surface Studio" class="background"/>
+						{% endfor %}
 					</div>
-				{% endfor %}
+				
 
 				<div class="item" data-marker="4">
-					<img src="{% static 'img/product/video.jpg' %}" alt="Microsoft Surface Studio" class="background"/>
+					<img style="height: 700px;" src="/../../media/{{product_version.images.first.image}}" alt="Microsoft Surface Studio" class="background"/>
 
-					<div class="tiles">
-					<a href="#video" data-gallery="#video" data-source="youtube" data-id="BzMLA8YIgG0">
-						<img src="{% static 'img/product/video.jpg' %}" alt="Surface Studio">
-
-						<div class="overlay"></div>
-						<div class="content">
-						<div class="content-outside">
-							<div class="content-inside">
-							<i class="ion-ios-play"></i>
-							<h2 class="white hidden-xs">Introducing Microsoft <br> Surface Studio</h2>
-							</div>
-						</div>
-						</div>
-					</a>
-					</div>
 			</div>
 			</div>
 
-			<ul class="markers">
-			<li data-marker="1" class="active"></li>
-			<li data-marker="2"></li>
-			<li data-marker="3"></li>
-			<li data-marker="4"></li>
-			</ul>
 
 		</div>
 		</div>

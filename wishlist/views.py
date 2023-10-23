@@ -6,6 +6,10 @@ from django.views.generic import ListView
 from .forms import CheckoutForm
 from django.contrib import messages
 from django.urls import reverse_lazy
+from paypal.standard.forms import PayPalPaymentsForm
+from django.conf import settings
+import uuid
+from django.urls import reverse
 
 # Create your views here.
 
@@ -73,19 +77,48 @@ def checkout(request):
             order.save()
             messages.success(request, "Your order has been received !")
             return redirect("checkout")
+
         else:
             messages.error(request, "Fill form correctly !")
             return redirect("checkout")
+        
+    
+
+    host=request.get_host()
+
+    paypal_checkout ={
+        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': total_price,
+        'item_name': "test",
+        'invoice': uuid.uuid4(),
+        'currency_code': 'USD',
+        'notify_url': f"https://{host}{reverse('paypal-ipn')}",
+        'return_url': f"http://{host}{reverse('payment-success')}",
+        'cancel_url': f"http://{host}{reverse('payment-failed')}",
+    }
+    paypal_payment=PayPalPaymentsForm(initial=paypal_checkout)
+    
+
+
 
     
     context = {
         "form" : form,
         "checkout_products" : checkout_products,
         "total_price" : total_price,
-        "discount" : discount
+        "discount" : discount,
+        'paypal': paypal_payment,
     }
 
     return render(request, "checkout.html", context)
+
+@login_required
+def PaymentSuccessful(request):
+    return render(request,'payment-success.html')
+
+@login_required
+def paymentFailed(request):
+    return render(request,'payment-failed.html')
 
 
 @login_required

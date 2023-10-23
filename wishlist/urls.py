@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from . import views
 
 urlpatterns = [
@@ -8,6 +8,11 @@ urlpatterns = [
     path('remove_cart/<int:id>/', views.remove_cart, name="remove_cart"),
     path('add_quantity/<int:id>/', views.add_quantity, name="add_quantity"),
     path('sub_quantity/<int:id>/', views.sub_quantity, name="sub_quantity"), 
+    path('payment-success/',views.PaymentSuccessful,name="payment-success"),
+    path('payment-failed/',views.paymentFailed,name="payment-failed"),
+    
+
+
 
     path('add_to_fav/<slug:slug>/', views.add_to_fav, name="add_to_fav"),
     path('remove_fav/<slug:slug>/', views.remove_fav, name="remove_fav"),
