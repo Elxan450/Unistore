@@ -171,19 +171,14 @@
                     <div class="col-md-4 hidden-xs">
                     </div>
                     <div class="col-xs-6 col-md-4">
-                        
-                        
-                        <div id="paypal-button-container"></div>
-                        
+                        <button class="btn btn-primary pull-right" type="submit">Confirm order</button>
                     </div>
-                    
                 </div>
                 <hr class="offset-md">
             </div>
 
         </div>
         </form>
-        {{paypal.render}}
     </div>
 
     <hr class="offset-lg">
@@ -193,5 +188,4 @@
 {% block js %}
     <script src="{% static 'js/checkout.js' %}"></script> 
     <script src="{% static 'js/checkout_city.js' %}"></script> 
-    
 {% endblock %}
